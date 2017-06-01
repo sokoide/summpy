@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import re
 from janome.tokenizer import Tokenizer
@@ -11,13 +10,13 @@ tokenizer = Tokenizer()
 def is_stopword(n):  # <- mecab node
     if len(n.surface) == 0:
         return True
-    elif re.search(ur'^[\s!-@\[-`\{-~　、-〜！-＠［-｀]+$', n.surface):
+    elif re.search(r'^[\s!-@\[-`\{-~　、-〜！-＠［-｀]+$', n.surface):
         return True
-    elif re.search(ur'^(接尾|非自立)', n.part_of_speech.split(',')[1]):
+    elif re.search(r'^(接尾|非自立)', n.part_of_speech.split(',')[1]):
         return True
-    elif u'サ変・スル' == n.infl_form or u'ある' == n.base_form:
+    elif 'サ変・スル' == n.infl_form or 'ある' == n.base_form:
         return True
-    elif re.search(ur'^(名詞|動詞|形容詞)', n.part_of_speech.split(',')[0]):
+    elif re.search(r'^(名詞|動詞|形容詞)', n.part_of_speech.split(',')[0]):
         return False
     else:
         return True
@@ -43,7 +42,7 @@ def _decode_janome_token(t, encoding='utf-8'):
     for attr_name in attributes:
         value = getattr(t, attr_name)
         if type(value) == str:
-            setattr(t, attr_name, value.decode('utf-8'))
+            setattr(t, attr_name, value)
     return t
 
 
@@ -59,5 +58,5 @@ def word_segmenter_ja(sent, node_filter=not_stopword,
 
 
 if __name__ == '__main__':
-    text = u'今日はいい天気ですね。'
-    print '|'.join(word_segmenter_ja(text)).encode('utf-8')
+    text = '今日はいい天気ですね。'
+    print('|'.join(word_segmenter_ja(text)))

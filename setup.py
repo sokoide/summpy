@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 from setuptools import setup
 import os
@@ -23,7 +22,7 @@ setup(
     packages=['summpy', 'summpy.misc'],
     package_data={'summpy': ['server_data/*.html']},
     install_requires=[
-        'numpy', 'scipy', 'scikit-learn', 'networkx', 'cherrypy'
+        'numpy', 'scipy', 'scikit-learn', 'networkx', 'pulp', 'janome'
     ],
     keywords=[
         'automatic summarization',

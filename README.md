@@ -7,9 +7,9 @@ Text summarization (sentence extraction) module with simple HTTP API.
 
 MIT License
 
-## Requirements 
+## Requirements
 
-### Python 2.7.*
+### Python 2.7.* or 3.*
 
 + numpy
 + scipy
@@ -23,8 +23,10 @@ MIT License
 
 ```sh
 pip install summpy
-python -m summpy.server -h 127.0.0.1 -p 8080
-curl http://127.0.0.1:8080/summarize\?sent_limit\=3\&text\=要約したい文章を入力。
+python -m summpy.server -H 127.0.0.1 -p 8080
+curl http://127.0.0.1:8080/?sent_limit=3&text=要約したい文章を入力。
+# URL encoded version is here.
+# curl http://127.0.0.1:8080/?sent_limit=3&text=%E8%A6%81%E7%B4%84%E3%81%97%E3%81%9F%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E5%85%A5%E5%8A%9B%E3%80%82
 ```
 
 ### Input Parameters
@@ -36,7 +38,7 @@ curl http://127.0.0.1:8080/summarize\?sent_limit\=3\&text\=要約したい文章
   + `divrank`: (experimental) DivRank (Diverse Rank, graph-based method). Since DivRank aims to provide non-redundant and high coverage information, it is suitable for multi-document summarization.
   + `mcp`: ILP-based method. Extracts sentences in terms of Maximum Coverage Problem.
 
-Hyper parameters for how many sentences are shown (optional) 
+Hyper parameters for how many sentences are shown (optional)
 
 - `sent_limit`: number of sentences (only {lex,clex,div}rank)
 - `char_limit`: number of characters
@@ -57,8 +59,8 @@ curl http://127.0.0.1:8080/summarize\?sent_limit\=3\&text\=突然ですが、リ
 ```javascript
 {
   summary: [
-    "リクルートが提供する多くのサービスが後に言及するカスタマーとクライアント双方のマッチングを実現するサービスと称される背景にはこのリボンモデルがあります。", 
-    "そしてこのリボンモデルこそ、リクルートにおけるUXデザインそのもの、とも言えることができます。", 
+    "リクルートが提供する多くのサービスが後に言及するカスタマーとクライアント双方のマッチングを実現するサービスと称される背景にはこのリボンモデルがあります。",
+    "そしてこのリボンモデルこそ、リクルートにおけるUXデザインそのもの、とも言えることができます。",
     "リボンモデルは国際規格の普及によって生まれた構想ではないものの、リボンモデルの構造はカスタマーとクライアントの体験設計基盤とも捉えることができ、UXデザインの普及・浸透と足並を揃えるかのように組織内に醸成されていきました。"
   ],
   debug_info: {}

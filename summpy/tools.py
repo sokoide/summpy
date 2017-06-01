@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import os
 import re
@@ -13,7 +12,7 @@ def tree_encode(obj, encoding='utf-8'):
     elif type_ == dict:
         new_obj = dict(
             (tree_encode(k, encoding), tree_encode(v, encoding))
-            for k, v in obj.iteritems()
+            for k, v in obj.items()
         )
         return new_obj
     elif type_ == unicode:
@@ -22,8 +21,8 @@ def tree_encode(obj, encoding='utf-8'):
         return obj
 
 
-def sent_splitter_ja(text, delimiters=set(u'。．？！\n\r'),
-                     parenthesis=u'（）「」『』“”'):
+def sent_splitter_ja(text, delimiters=set('。．？！\n\r'),
+                     parenthesis='（）「」『』“”'):
     '''
     Args:
       text: unicode string that contains multiple Japanese sentences.

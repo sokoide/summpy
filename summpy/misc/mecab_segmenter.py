@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import re
 import MeCab
@@ -31,13 +30,13 @@ def _mecab_node2seq(node, decode_surface=True, feat_dict=True,
 def is_stopword(n):  # <- mecab node
     if len(n._surface) == 0:
         return True
-    elif re.search(ur'^[\s!-@\[-`\{-~　、-〜！-＠［-｀]+$', n._surface):
+    elif re.search(r'^[\s!-@\[-`\{-~　、-〜！-＠［-｀]+$', n._surface):
         return True
-    elif re.search(ur'^(接尾|非自立)', n.feat_dict['cat1']):
+    elif re.search(r'^(接尾|非自立)', n.feat_dict['cat1']):
         return True
-    elif u'サ変・スル' == n.feat_dict['conj'] or u'ある' == n.feat_dict['orig']:
+    elif 'サ変・スル' == n.feat_dict['conj'] or 'ある' == n.feat_dict['orig']:
         return True
-    elif re.search(ur'^(名詞|動詞|形容詞)', n.feat_dict['pos']):
+    elif re.search(r'^(名詞|動詞|形容詞)', n.feat_dict['pos']):
         return False
     else:
         return True
@@ -74,5 +73,5 @@ def word_segmenter_ja(sent, node_filter=not_stopword,
 
 
 if __name__ == '__main__':
-    text = u'今日はいい天気ですね。'
-    print '|'.join(word_segmenter_ja(text)).encode('utf-8')
+    text = '今日はいい天気ですね。'
+    print('|'.join(word_segmenter_ja(text)).encode('utf-8'))

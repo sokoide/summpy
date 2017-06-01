@@ -1,12 +1,13 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
+import io
 import sys
 import getopt
 import codecs
 import collections
 import numpy
 import networkx
+import codecs
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.metrics import pairwise_distances
 
@@ -20,7 +21,7 @@ def lexrank(sentences, continuous=False, sim_threshold=0.1, alpha=0.9,
     compute centrality score of sentences.
 
     Args:
-      sentences: [u'こんにちは．', u'私の名前は飯沼です．', ... ]
+      sentences: ['こんにちは．', '私の名前は飯沼です．', ... ]
       continuous: if True, apply continuous LexRank. (see reference)
       sim_threshold: if continuous is False and smilarity is greater or
         equal to sim_threshold, link the sentences.
@@ -39,7 +40,7 @@ def lexrank(sentences, continuous=False, sim_threshold=0.1, alpha=0.9,
         },
         similarity_matrix
       )
-    
+
     Reference:
       Günes Erkan and Dragomir R. Radev.
       LexRank: graph-based lexical centrality as salience in text
@@ -103,7 +104,7 @@ def summarize(text, sent_limit=None, char_limit=None, imp_require=None,
     debug_info = {}
     sentences = list(tools.sent_splitter_ja(text))
     scores, sim_mat = lexrank(sentences, **lexrank_params)
-    sum_scores = sum(scores.itervalues())
+    sum_scores = sum(scores.values())
     acc_scores = 0.0
     indexes = set()
     num_sent, num_char = 0, 0
@@ -151,8 +152,8 @@ Usage:
     options, args = getopt.getopt(sys.argv[1:], 'f:e:v:s:c:i:')
     options = dict(options)
 
-    if len(options) < 2:
-        print _usage
+    if len(options) < 1:
+        print(_usage)
         sys.exit(0)
 
     fname = options['-f']
@@ -179,5 +180,10 @@ Usage:
         text, sent_limit=sent_limit, char_limit=char_limit,
         imp_require=imp_require, **lexrank_params
     )
+
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer,
+                           encoding=encoding,
+                           errors='backslashreplace',
+                           line_buffering=sys.stdout.line_buffering)
     for sent in sentences:
-        print sent.strip().encode(encoding)
+        print(sent.strip())
