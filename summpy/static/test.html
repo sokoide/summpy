@@ -1,6 +1,6 @@
 <html>
   <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
   </head>
   <body>
     <textarea type="text" name="text" rows="7" cols="70"></textarea>
@@ -24,9 +24,10 @@ $(document).ready(function() {
       sent_limit: $("input[name='sent_limit']").val(),
       char_limit: $("input[name='char_limit']").val(),
       imp_require: $("input[name='imp_require']").val(),
+      dataType: 'json',
       debug: true
     };
-    $.post("/summarize", params)
+    $.post("/", params)
       .done(function(res) {
         var sentences = res.summary;
         var debug_info = res.debug_info;

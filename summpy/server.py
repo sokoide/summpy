@@ -5,28 +5,30 @@ import os
 import re
 import argparse
 import json
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    algo = request.args.get('algo', 'lexrank')
-    text = request.args.get('text', None)
+    algo = request.values.get('algo', 'lexrank')
+    text = request.values.get('text', '')
 
     summarizer_params = {}
-    if 'sent_limit' in request.args:
-        summarizer_params['sent_limit'] = int(request.args.get('sent_limit'))
-    if 'char_limit' in request.args:
-        summarizer_params['char_limit'] = int(request.args.get('char_limit'))
-    if 'imp_require' in request.args:
-        summarizer_params['imp_require'] = float(request.args.get('imp_require'))
+    if 'sent_limit' in request.values and request.values['sent_limit'] != "":
+        summarizer_params['sent_limit'] = int(request.values['sent_limit'])
+    if 'char_limit' in request.values and request.values['char_limit'] != "":
+        summarizer_params['char_limit'] = int(request.values['char_limit'])
+    if 'imp_require' in request.values and request.values['imp_require'] != "":
+        summarizer_params['imp_require'] = float(request.values['imp_require'])
 
     factory = Factory()
     summarizer = None
 
+    # try:
     if algo in ('lexrank', 'clexrank', 'divrank'):
         summarizer = factory.get_summarizer('lexrank')
         if algo == 'clexrank':
@@ -42,9 +44,9 @@ def index():
     #     return json.dumps({'error': str(e)}, ensure_ascii=False, indent=2)
 
     # else:
-    res = json.dumps({'summary': summary, 'debug_info': debug_info}, ensure_ascii=False, indent=2)
+    res = {'summary': summary, 'debug_info': debug_info}
 
-    return res
+    return jsonify(res)
 
 
 class Factory(object):
