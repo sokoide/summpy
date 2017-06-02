@@ -15,7 +15,7 @@ MIT License
 + scipy
 + scikit-learn
 + networkx
-+ cherrypy
++ flask
 + MeCab or janome
 + pulp (if you use ILP-based method)
 
@@ -24,9 +24,9 @@ MIT License
 ```sh
 pip install summpy
 python -m summpy.server -H 127.0.0.1 -p 8080
-curl http://127.0.0.1:8080/?sent_limit=3&text=要約したい文章を入力。
+curl "1http://127.0.0.1:8080/?sent_limit=3&text=要約したい文章を入力。"
 # URL encoded version is here.
-# curl http://127.0.0.1:8080/?sent_limit=3&text=%E8%A6%81%E7%B4%84%E3%81%97%E3%81%9F%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E5%85%A5%E5%8A%9B%E3%80%82
+# curl "http://127.0.0.1:8080/?sent_limit=3&text=%E8%A6%81%E7%B4%84%E3%81%97%E3%81%9F%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E5%85%A5%E5%8A%9B%E3%80%82"
 ```
 
 ### Input Parameters
@@ -51,7 +51,7 @@ from ([http://blog.recruit-tech.co.jp/2015/08/28/recruit_two_cx/](http://blog.re
 #### Request
 
 ```sh
-curl http://127.0.0.1:8080/summarize\?sent_limit\=3\&text\=突然ですが、リクルートのリボンモデルを耳にしたことはあるでしょうか？...
+curl "http://127.0.0.1:8080/?sent_limit=3&text=突然ですが、リクルートのリボンモデルを耳にしたことはあるでしょうか？..."
 ```
 
 #### Response (JSON format)
