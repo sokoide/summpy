@@ -22,7 +22,7 @@ setup(
     packages=['summpy', 'summpy.misc'],
     package_data={'summpy': ['server_data/*.html']},
     install_requires=[
-        'numpy', 'scipy', 'scikit-learn', 'networkx', 'pulp', 'janome'
+        'numpy', 'scipy', 'scikit-learn', 'networkx', 'six', 'pulp', 'janome', 'flask'
     ],
     keywords=[
         'automatic summarization',
