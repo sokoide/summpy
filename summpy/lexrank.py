@@ -82,8 +82,8 @@ def lexrank(sentences, continuous=False, sim_threshold=0.1, alpha=0.9,
     for i, j in zip(linked_rows, linked_cols):
         if i == j:
             continue
-        weight = sim_mat[i,j] if continuous else 1.0
-        graph.add_edge(i, j, {'weight': weight})
+        weight = sim_mat[i, j] if continuous else 1.0
+        graph.add_edge(i, j, weight=weight)
 
     scores = ranker(graph, **ranker_params)
     return scores, sim_mat
@@ -182,8 +182,8 @@ Usage:
     )
 
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer,
-                           encoding=encoding,
-                           errors='backslashreplace',
-                           line_buffering=sys.stdout.line_buffering)
+                                  encoding=encoding,
+                                  errors='backslashreplace',
+                                  line_buffering=sys.stdout.line_buffering)
     for sent in sentences:
         print(sent.strip())

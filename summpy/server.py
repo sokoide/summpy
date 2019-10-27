@@ -16,7 +16,7 @@ app.config['JSON_AS_ASCII'] = False
 def index():
     algo = request.values.get('algo', 'lexrank')
     text = request.values.get('text', '')
-
+    print('text: {}'.format(text))
     summarizer_params = {}
     if 'sent_limit' in request.values and request.values['sent_limit'] != "":
         summarizer_params['sent_limit'] = int(request.values['sent_limit'])
@@ -71,11 +71,14 @@ class Factory(object):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Simple web server for summpy")
-    parser.add_argument('-H', '--host', default="127.0.0.1", help="the hostname to listen on. default is 127.0.0.1.")
-    parser.add_argument('-p', '--port', default="8080", help="the port of the webserver. defualt is 8080.")
-    parser.add_argument('-d', '--debug', action="store_true", help="turn debug on if setted")
+    parser = argparse.ArgumentParser(
+        description="Simple web server for summpy")
+    parser.add_argument('-H', '--host', default="127.0.0.1",
+                        help="the hostname to listen on. default is 127.0.0.1.")
+    parser.add_argument('-p', '--port', default="8080",
+                        help="the port of the webserver. defualt is 8080.")
+    parser.add_argument('-d', '--debug', action="store_true",
+                        help="turn debug on if setted")
     o = parser.parse_args()
 
     app.run(host=o.host, port=int(o.port), debug=o.debug)
-
